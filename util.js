@@ -1,5 +1,5 @@
 exports.extend = function(target) {
-    for (var i = 0; i < arguments.length; i++) {
+    for (var i = 1; i < arguments.length; i++) {
         var src = arguments[i];
         if (src == null) {
             continue;
