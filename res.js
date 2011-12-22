@@ -91,6 +91,29 @@ exports.jsonp = function(o, callbackKey, headers) {
     };
 };
 
+exports.dumpRequest = function() {
+    return function(request, response) {
+        var result = {
+            url: request.url,
+            method: request.method,
+            httpVersion: request.httpVersion,
+            protocol: request.protocol,
+            host: request.host,
+            auth: request.auth,
+            hostname: request.hostname,
+            port: request.port,
+            search: request.search,
+            hash: request.hash,
+            headers: request.headers,
+            query: request.query,
+            body: request.body
+        };
+
+        writeHeader(response, 200, 'application/json');
+        response.end(JSON.stringify(result, null, '    '));
+    };
+};
+
 exports.delay = function(time, actual) {
     return function(request, response) {
         setTimeout(function() { actual(request, response); }, time);
