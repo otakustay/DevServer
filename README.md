@@ -68,6 +68,10 @@ DevServer**没有**任何错误处理，因此时常会崩溃，好在重启非�
 * callbackKey - 回调函数名在请求的querystring中对应的键，默认为`'callback'`
 * headers - 需要额外添加的HTTP头
 
+### `dumpRequest()`
+
+输出请求的各项信息，`Content-Type`头强制为`application/json`。响应以JSON格式输出，包含`url`、`method`、`httpVersion`、`protocol`、`host`、`auth`、`hostname`、`port`、`search`、`hash`、`headers`、`query`、`body`。
+
 ### `delay(time, actual)`
 
 延迟一段时间再响应请求，该资源需要一个真正负责响应的资源，如：
