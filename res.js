@@ -2,6 +2,7 @@ var fs = require('fs');
 var path = require('path');
 var querystring = require('querystring');
 var util = require('./util');
+var url = require('url');
 
 var mimeType = {
     gif: 'image/gif',
@@ -10,6 +11,7 @@ var mimeType = {
     png: 'image/png',
     js: 'application/x-javascript',
     css: 'text/css',
+    htm: 'text/html',
     html: 'text/html',
     xml: 'text/xml',
     txt: 'text/plain',
@@ -39,13 +41,11 @@ exports.exportTo = function(target) {
     }
 };
 
-exports.file = function(filename, contentType, headers) {
-    var extension = path.extname(filename);
-    contentType = contentType || mimeType[extension] || defaultMimeType;
-
+exports.file = function(filename, userContentType, headers) {
     return function(request, response) {
         var file = filename || '.' + request.pathname;
-        console.log(file);
+        var extension = path.extname(file);
+        var contentType = userContentType || mimeType[extension.substring(1)] || defaultMimeType;
         path.exists(file, function(exists) {
             if (exists) {
                 fs.readFile(file, function(error, data) {
